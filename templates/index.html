@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pumita | Hamburguesas Artesanales & Alta Fidelidad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* ESTILOS CORE Y PALETA DE COLORES PREMIUM */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-dark: #111111;
+            --bg-light: #fdfcf9;
+            --accent-gold: #c5a880;
+            --accent-gold-hover: #b3946b;
+            --text-dark: #1a1a1a;
+            --text-muted: #666666;
+            --text-light: #ffffff;
+            --border-color: #eae6df;
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-sans);
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .text-center { text-align: center; }
+        .bg-light { background-color: #f6f4ee !important; }
+
+        /* MARQUESINA SUPERIOR DE ESTADO */
+        .status-bar {
+            background-color: #1a1a1a;
+            color: var(--text-light);
+            font-size: 11pt;
+            font-weight: 500;
+            letter-spacing: 2px;
+            padding: 10px 0;
+            overflow: hidden;
+            position: relative;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .status-bar.open { border-top: 3px solid #4caf50; }
+        .status-bar.closed { border-top: 3px solid #f44336; }
+        
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+        .marquee-text {
+            padding-right: 50px;
+            white-space: nowrap;
+        }
+        @keyframes marquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+        /* BARRA DE NAVEGACIÓN */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 20pt;
+            font-weight: 700;
+            color: var(--accent-gold);
+            letter-spacing: 4px;
+        }
+        .menu-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 11pt;
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+        .menu-links a:hover {
+            color: var(--accent-gold);
+        }
+        .cart-nav i {
+            margin-right: 5px;
+            color: var(--accent-gold);
+        }
+
+        /* HERO PRINCIPAL */
+        .hero {
+            position: relative;
+            height: 75vh;
+            background: url('https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(17,17,17,0.7), rgba(17,17,17,0.9));
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        .hero-subtitle {
+            font-size: 11pt;
+            letter-spacing: 4px;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: 38pt;
+            font-weight: 400;
+            line-height: 1.2;
+            margin: 0 0 30px 0;
+        }
+        .hero-btns .btn-primary {
+            display: inline-block;
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            padding: 14px 32px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 10pt;
+            letter-spacing: 1px;
+            transition: background 0.3s;
+            margin-right: 15px;
+        }
+        .hero-btns .btn-primary:hover { background-color: var(--accent-gold-hover); }
+        .hero-btns .btn-secondary {
+            display: inline-block;
+            border: 1px solid var(--text-light);
+            color: var(--text-light);
+            padding: 14px 32px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 10pt;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+        .hero-btns .btn-secondary:hover { background: var(--text-light); color: var(--bg-dark); }
+
+        /* SECCIONES */
+        .seccion {
+            padding: 80px 10%;
+        }
+        .titulo-seccion {
+            font-family: var(--font-serif);
+            font-size: 28pt;
+            font-weight: 400;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .subtitulo-seccion {
+            font-size: 11pt;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            line-height: 1.6;
+        }
+
+        /* BLOQUES DE CONFIANZA Y SEGURIDAD ALIMENTARIA */
+        .compromisos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        .compromiso-card {
+            background: var(--text-light);
+            border: 1px solid var(--border-color);
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            transition: transform 0.3s;
+        }
+        .compromiso-card:hover {
+            transform: translateY(-5px);
+        }
+        .compromiso-card i {
+            font-size: 24pt;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+        .compromiso-card h4 {
+            margin: 0 0 10px 0;
+            font-size: 13pt;
+            font-weight: 600;
+        }
+        .compromiso-card p {
+            margin: 0;
+            font-size: 10pt;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* SECCIÓN SOBRE NOSOTROS Y PROCESOS DE TIEMPO */
+        .info-split-block {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 50px;
+            align-items: center;
+            margin-top: 40px;
+            background: var(--text-light);
+            border: 1px solid var(--border-color);
+            padding: 50px;
+        }
+        .info-split-text h3 {
+            font-family: var(--font-serif);
+            font-size: 22pt;
+            font-weight: 400;
+            margin: 0 0 20px 0;
+        }
+        .info-split-text p {
+            font-size: 11pt;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        .info-split-text ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+        .info-split-text ul li {
+            font-size: 10.5pt;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .info-split-text ul li strong {
+            color: var(--accent-gold-hover);
+        }
+
+        /* FILTROS DE CATEGORÍA */
+        .filtros-contenedor {
+            margin-bottom: 40px;
+        }
+        .btn-filtro {
+            background: none;
+            border: none;
+            padding: 10px 24px;
+            font-size: 10pt;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-muted);
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        .btn-filtro.active, .btn-filtro:hover {
+            color: var(--text-dark);
+            border-bottom: 2px solid var(--accent-gold);
+        }
+
+        /* CUADRÍCULA DEL MENÚ Y TARJETAS */
+        .grid-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: var(--text-light);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .card-img {
+            height: 250px;
+            overflow: hidden;
+            background-color: #f1ede6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .card:hover .card-img img {
+            transform: scale(1.05);
+        }
+        .card-info {
+            padding: 25px;
+        }
+        .card-header-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 15px;
+        }
+        .card-header-item h3 {
+            margin: 0;
+            font-size: 14pt;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+        .price {
+            font-family: var(--font-serif);
+            font-size: 15pt;
+            color: var(--accent-gold-hover);
+            font-weight: 700;
+        }
+        .recipe-desc {
+            font-size: 10pt;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 0 0 20px 0;
+            height: 64px;
+            overflow: hidden;
+        }
+        .add-btn-premium {
+            width: 100%;
+            background: none;
+            border: 1px solid var(--text-dark);
+            padding: 12px;
+            font-size: 10pt;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .add-btn-premium:hover {
+            background: var(--text-dark);
+            color: var(--text-light);
+        }
+
+        /* CONTENEDOR DEL CARRITO INTERACTIVO */
+        .cart-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--text-light);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+        }
+        .cart-container h2 {
+            font-family: var(--font-serif);
+            font-size: 24pt;
+            margin-top: 0;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .cart-item-details {
+            display: flex;
+            flex-direction: column;
+        }
+        .item-title { font-weight: 600; font-size: 11pt; }
+        .item-unit-price { font-size: 9.5pt; color: var(--text-muted); margin-top: 2px; }
+        .qty-ctrl {
+            display: flex;
+            align-items: center;
+        }
+        .qty-ctrl button {
+            background: none;
+            border: 1px solid var(--border-color);
+            width: 30px; height: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .qty-ctrl button:hover { background: #f0ebdf; }
+        .qty-ctrl span { margin: 0 15px; font-weight: 600; }
+        .subtotal { margin-left: 25px; font-weight: 600; width: 65px; text-align: right; }
+        
+        .empty-msg { text-align: center; color: var(--text-muted); padding: 30px 0; }
+        
+        .opciones-entrega {
+            margin: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+        .radio-label {
+            flex: 1;
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fafaf7;
+            transition: all 0.3s;
+        }
+        .radio-label input { accent-color: var(--text-dark); }
+        .radio-label span { font-size: 10.5pt; font-weight: 500; }
+        .radio-label input:checked + span, .radio-label:has(input:checked) {
+            border-color: var(--text-dark);
+            background: #fdfcf9;
+        }
+
+        .notas-cocina {
+            margin-bottom: 30px;
+        }
+        .notas-cocina label {
+            display: block;
+            font-size: 10pt;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .notas-cocina textarea {
+            width: 100%;
+            height: 80px;
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            font-family: var(--font-sans);
+            font-size: 10pt;
+            resize: none;
+        }
+        .notas-cocina textarea:focus {
+            outline: 1px solid var(--text-dark);
+        }
+
+        .cart-total {
+            border-top: 2px solid var(--text-dark);
+            padding-top: 20px;
+        }
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11pt;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+        }
+        .final-total {
+            font-size: 16pt;
+            color: var(--text-dark);
+            font-weight: 700;
+            margin-top: 15px;
+            margin-bottom: 25px;
+        }
+        .btn-whatsapp {
+            width: 100%;
+            background-color: #25d366;
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 11pt;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.3s;
+        }
+        .btn-whatsapp:hover { background-color: #20ba59; }
+
+        /* ONDAS ANIMADAS ELEGANTES PARA EL FOOTER */
+        .footer-wave-container {
+            background-color: transparent;
+            margin-bottom: -10px;
+        }
+        .waves {
+            position: relative;
+            width: 100%;
+            height: 12vh;
+            min-height: 80px;
+            max-height: 150px;
+        }
+        .parallax > use {
+            animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+        }
+        .parallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 7s; }
+        .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; }
+        .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
+        .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; }
+        @keyframes move-forever {
+            0% { transform: translate3d(-90px,0,0); }
+            100% { transform: translate3d(85px,0,0); }
+        }
+
+        footer {
+            background-color: var(--bg-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 60px 10% 30px 10%;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 40px;
+        }
+        footer h4 {
+            color: var(--accent-gold);
+            font-family: var(--font-serif);
+            font-size: 15pt;
+            margin-top: 0;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        footer p {
+            font-size: 10pt;
+            line-height: 1.6;
+            margin: 0 0 10px 0;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            font-size: 9pt;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* BOTÓN FLOTANTE DE LLAMADA DIRECTA */
+        .btn-llamada-flotante {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--text-dark);
+            color: var(--accent-gold);
+            width: 55px; height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14pt;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            text-decoration: none;
+            z-index: 999;
+            transition: all 0.3s;
+            border: 1px solid var(--accent-gold);
+        }
+        .btn-llamada-flotante:hover {
+            transform: scale(1.1);
+            background-color: var(--accent-gold);
+            color: var(--text-dark);
+        }
+
+        .filtered-out {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="status-bar" class="status-bar">
+        <div class="marquee-track" id="marquee-track">
+            </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo">P U M I T A</div>
+        <div class="menu-links">
+            <a href="#menu">Nuestra Carta</a>
+            <a href="#about-us">Nuestro Proceso</a>
+            <a href="#carrito-seccion" class="cart-nav">
+                <i class="fas fa-shopping-bag"></i> Bolsa (<span id="cart-count">0</span>)
+            </a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle">HAMBURGUESAS ARTESANALES Y COMIDA RÁPIDA PREMIUM</p>
+            <h1>Fuego, Humo &<br>Ingredientes Seleccionados</h1>
+            <div class="hero-btns">
+                <a href="#menu" class="btn-primary">Ver la Carta Completa</a>
+                <a href="tel:+34602594258" class="btn-secondary">Reservas & Pedidos</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="seccion" style="padding-bottom: 40px;">
+        <div class="text-center">
+            <h2 class="titulo-seccion">Seguridad y Confianza Total</h2>
+            <p class="subtitulo-seccion">Para nosotros tu tranquilidad es lo primero. Conoce los pilares con los que protegemos cada uno de tus bocados.</p>
+        </div>
+        <div class="compromisos-grid">
+            <div class="compromiso-card">
+                <i class="fas fa-shield-virus"></i>
+                <h4>Higiene Certificada</h4>
+                <p>Nuestra cocina opera bajo estrictos controles sanitarios diarios. Todo nuestro equipo cuenta con formación avanzada en manipulación higiénica.</p>
+            </div>
+            <div class="compromiso-card">
+                <i class="fas fa-truck-loading"></i>
+                <h4>Reparto 100% Seguro</h4>
+                <p>Nuestras bolsas viajan selladas con un precinto de garantía térmica inviolable. Nadie puede abrir tu pedido desde nuestra cocina hasta tu mesa.</p>
+            </div>
+            <div class="compromiso-card">
+                <i class="fas fa-leaf"></i>
+                <h4>Trazabilidad Local Km 0</h4>
+                <p>Ingredientes frescos controlados de proveedores locales certificados. Máxima frescura y apoyo al comercio local sin intermediarios de riesgo.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about-us" class="seccion bg-light" style="padding-top: 60px; padding-bottom: 60px;">
+        <div class="info-split-block">
+            <div class="info-split-text">
+                <h3>¿Cómo elaboramos tus platos?</h3>
+                <p>En Pumita no hacemos comida rápida industrial precongelada ni ultraprocesada en masa. Cada hamburguesa es una pieza de artesanía culinaria diseñada desde cero para garantizar un bocado sublime, transparente y saludable.</p>
+                <p>Cocinamos de cara al público con transparencia total, utilizando técnicas tradicionales e ingredientes selectos:</p>
+                <ul>
+                    <li><strong>Pan Brioche Diario:</strong> Horneado artesanalmente cada mañana con mantequilla pura.</li>
+                    <li><strong>Carne Seleccionada:</strong> Cortes limpios de vacuno seleccionados, sin conservantes químicos ni aditivos extraños.</li>
+                    <li><strong>Procesos Limpios:</strong> Aceites vegetales puros controlados minuciosamente para asegurar una fritura limpia y digestiva.</li>
+                </ul>
+            </div>
+            <div class="info-split-text" style="border-left: 1px solid var(--border-color); padding-left: 20px;">
+                <h3>⏱️ Tiempos de Preparación</h3>
+                <p>Porque la comida bien hecha requiere su ritual. Para garantizar que la carne mantenga sus jugos naturales, el queso se funda a la temperatura perfecta y los nuggets queden increíblemente crujientes, manejamos los siguientes tiempos:</p>
+                <ul>
+                    <li><strong>Tiempo de cocina medio:</strong> Entre <strong>12 y 15 minutos</strong> de preparación meticulosa por pedido.</li>
+                    <li><strong>Envíos a domicilio:</strong> Tu pedido saldrá en empaques térmicos sellados de última generación, estimando una entrega en tu puerta de 30 a 45 minutos en total.</li>
+                </ul>
+                <p style="font-size: 10pt; font-style: italic; margin-top: 15px; color: var(--accent-gold-hover);">Agradecemos tu paciencia: cocinar con alma lleva unos minutos más, pero tu salud y tu paladar lo notarán al instante.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="seccion">
+        <div class="text-center">
+            <h2 class="titulo-seccion">Nuestra Carta</h2>
+            <p class="subtitulo-seccion">Recetas cuidadas al detalle, preparadas al momento con ingredientes frescos de la máxima calidad.</p>
+            
+            <div class="filtros-contenedor">
+                <button class="btn-filtro active" onclick="filtrarCategoria('all')">Todo</button>
+                <button class="btn-filtro" onclick="filtrarCategoria('burgers')">Hamburguesas</button>
+                <button class="btn-filtro" onclick="filtrarCategoria('starters')">Entrantes</button>
+                <button class="btn-filtro" onclick="filtrarCategoria('sides')">Complementos</button>
+            </div>
+        </div>
+        
+        <div class="grid-menu">
+            <div class="card" data-categoria="burgers">
+                <div class="card-img">
+                    <img src="/static/hamburguesa.png" alt="Pumita Special Burger" onerror="this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=600'">
+                </div>
+                <div class="card-info">
+                    <div class="card-header-item">
+                        <h3>Pumita Special Burger</h3>
+                        <span class="price">9.33€</span>
+                    </div>
+                    <p class="recipe-desc">Pechuga de pollo súper crujiente hecha artesanalmente, servida en pan brioche horneado, queso cheddar madurado fundido y tiras de bacon ahumado crujiente.</p>
+                    <button onclick="addToCart('Pumita Special Burger', 9.33)" class="add-btn-premium">Añadir a la Bolsa</button>
+                </div>
+            </div>
+
+            <div class="card" data-categoria="starters">
+                <div class="card-img">
+                    <img src="/static/nuggets.png" alt="Pumi Nuggets Selection" onerror="this.src='https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&q=80&w=600'">
+                </div>
+                <div class="card-info">
+                    <div class="card-header-item">
+                        <h3>Pumi Nuggets Selection</h3>
+                        <span class="price">6.50€</span>
+                    </div>
+                    <p class="recipe-desc">6 unidades de pechuga de pollo de corral seleccionada, increíblemente jugosas por dentro y rebozadas en nuestro empanado crujiente secreto.</p>
+                    <button onclick="addToCart('Pumi Nuggets Selection', 6.50)" class="add-btn-premium">Añadir a la Bolsa</button>
+                </div>
+            </div>
+
+            <div class="card" data-categoria="sides">
+                <div class="card-img">
+                    <img src="/static/patatas.png" alt="Rustic Monalisa Fries" onerror="this.src='https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&q=80&w=600'">
+                </div>
+                <div class="card-info">
+                    <div class="card-header-item">
+                        <h3>Rustic Monalisa Fries</h3>
+                        <span class="price">4.03€</span>
+                    </div>
+                    <p class="recipe-desc">Ración abundante de patatas seleccionadas Monalisa, cortadas a mano, doblemente cocinadas a fuego lento y sazonadas con escamas de sal marina.</p>
+                    <button onclick="addToCart('Rustic Monalisa Fries', 4.03)" class="add-btn-premium">Añadir a la Bolsa</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="carrito-seccion" class="seccion bg-light">
+        <div class="cart-container">
+            <h2>Tu Pedido</h2>
+            
+            <div id="cart-items">
+                </div>
+            
+            <div class="opciones-entrega">
+                <label class="radio-label">
+                    <input type="radio" name="entrega" value="pickup" checked onchange="calcularTotales()">
+                    <span><i class="fas fa-store"></i> Recogida en Local (Gratis)</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="entrega" value="delivery" onchange="calcularTotales()">
+                    <span><i class="fas fa-motorcycle"></i> Envío a Domicilio (+2.50€)</span>
+                </label>
+            </div>
+
+            <div class="notas-cocina">
+                <label for="order-notes">Instrucciones especiales para la cocina (Alergias, preferencias...):</label>
+                <textarea id="order-notes" placeholder="Ej: Sin cebolla, alérgico a los frutos secos, salsas aparte..."></textarea>
+            </div>
+            
+            <div class="cart-total">
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal-price">0.00€</span>
+                </div>
+                <div class="total-row envio-row" id="envio-row" style="display: none;">
+                    <span>Gastos de Envío:</span>
+                    <span>2.50€</span>
+                </div>
+                <div class="total-row final-total">
+                    <span>Total del Pedido:</span>
+                    <span id="total-price">0.00€</span>
+                </div>
+                <button class="btn-whatsapp" onclick="sendOrder()">
+                    Confirmar Pedido por WhatsApp <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer-wave-container">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(17, 17, 17, 0.3)" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(197, 168, 128, 0.15)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(25, 25, 25, 0.6)" />
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="#111111" />
+            </g>
+        </svg>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h4>PUMITA</h4>
+                <p>Alta fidelidad culinaria y cocina callejera de autor.</p>
+                <p style="font-size:8.5pt; color:rgba(255,255,255,0.4);">Comprometidos al 100% con tu seguridad alimentaria.</p>
+            </div>
+            <div>
+                <h4>Contacto</h4>
+                <p>📞 +34 602 59 42 58</p>
+                <p>✉️ pedidos@pumitarestaurant.com</p>
+            </div>
+            <div>
+                <h4>Horario de Cocina</h4>
+                <p>Lunes a Domingo</p>
+                <p>12:00 PM - 11:00 PM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 PUMITA. Todos los derechos reservados. Elaborado con precisión artesanal.</p>
+        </div>
+    </footer>
+
+    <a href="tel:+34602594258" class="btn-llamada-flotante" title="Llamar al local">
+        <i class="fas fa-phone-alt"></i>
+    </a>
+
+    <script>
+        let cart = {};
+        const DELIVERY_FEE = 2.50;
+
+        function addToCart(name, price) {
+            if (cart[name]) {
+                cart[name].qty++;
+            } else {
+                cart[name] = { price: price, qty: 1 };
+            }
+            updateUI();
+        }
+
+        function changeQty(name, delta) {
+            cart[name].qty += delta;
+            if (cart[name].qty <= 0) delete cart[name];
+            updateUI();
+        }
+
+        function filtrarCategoria(categoria) {
+            const botones = document.querySelectorAll('.btn-filtro');
+            botones.forEach(btn => btn.classList.remove('active'));
+            if(event) event.target.classList.add('active');
+
+            const tarjetas = document.querySelectorAll('.grid-menu .card');
+            tarjetas.forEach(card => {
+                const cumpleFiltro = (categoria === 'all' || card.getAttribute('data-categoria') === categoria);
+                if (cumpleFiltro) {
+                    card.classList.remove('filtered-out');
+                } else {
+                    card.classList.add('filtered-out');
+                }
+            });
+        }
+
+        function updateUI() {
+            const container = document.getElementById('cart-items');
+            container.innerHTML = '';
+            let count = 0;
+
+            Object.keys(cart).forEach(name => {
+                const item = cart[name];
+                count += item.qty;
+                container.innerHTML += `
+                    <div class="cart-item">
+                        <div class="cart-item-details">
+                            <span class="item-title">${name}</span>
+                            <span class="item-unit-price">${item.price.toFixed(2)}€ / unidad</span>
+                        </div>
+                        <div class="qty-ctrl">
+                            <button onclick="changeQty('${name}', -1)">-</button>
+                            <span>${item.qty}</span>
+                            <button onclick="changeQty('${name}', 1)">+</button>
+                            <span class="subtotal">${(item.price * item.qty).toFixed(2)}€</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('cart-count').innerText = count;
+            if(count === 0) {
+                container.innerHTML = '<p class="empty-msg">Tu bolsa de pedido está vacía actualmente.</p>';
+            }
+            calcularTotales();
+        }
+
+        function calcularTotales() {
+            let subtotal = 0;
+            Object.keys(cart).forEach(name => {
+                const item = cart[name];
+                subtotal += item.price * item.qty;
+            });
+
+            const metodoEntrega = document.querySelector('input[name="entrega"]:checked').value;
+            let totalFinal = subtotal;
+            
+            const envioRow = document.getElementById('envio-row');
+            if (metodoEntrega === 'delivery' && subtotal > 0) {
+                totalFinal += DELIVERY_FEE;
+                envioRow.style.display = 'flex';
+            } else {
+                envioRow.style.display = 'none';
+            }
+
+            document.getElementById('subtotal-price').innerText = subtotal.toFixed(2) + '€';
+            document.getElementById('total-price').innerText = totalFinal.toFixed(2) + '€';
+        }
+
+        function sendOrder() {
+            if (Object.keys(cart).length === 0) return alert("Por favor, añade algún artículo antes de confirmar.");
+            const metodoEntrega = document.querySelector('input[name="entrega"]:checked').value;
+            const notas = document.getElementById('order-notes').value.trim();
+            
+            let text = "🏛️ *NUEVO PEDIDO - PUMITA PREMIUM*\n";
+            text += "===================================\n\n";
+            
+            let subtotal = 0;
+            Object.keys(cart).forEach(name => {
+                const item = cart[name];
+                text += `▪️ ${item.qty}x ${name} (${(item.price * item.qty).toFixed(2)}€)\n`;
+                subtotal += item.price * item.qty;
+            });
+            
+            text += "\n===================================\n";
+            text += `🔹 *Método:* ${metodoEntrega === 'delivery' ? 'Envío a Domicilio' : 'Recogida en Local'}\n`;
+            if (notas) text += `📝 *Notas para Cocina:* ${notas}\n`;
+            
+            let totalFinal = subtotal;
+            if (metodoEntrega === 'delivery') totalFinal += DELIVERY_FEE;
+            text += `\n💰 *TOTAL NETO:* ${totalFinal.toFixed(2)}€`;
+            
+            window.open(`https://api.whatsapp.com/send?phone=34602594258&text=${encodeURIComponent(text)}`);
+        }
+
+        function initMarquee() {
+            const now = new Date();
+            const hour = now.getHours();
+            const bar = document.getElementById('status-bar');
+            const track = document.getElementById('marquee-track');
+            
+            let msg = "";
+            if (hour >= 12 && hour < 23) {
+                bar.className = "status-bar open";
+                msg = " • COCINA ABIERTA — DISPONIBLE PARA PEDIDOS ONLINE Y RECOGIDA";
+            } else {
+                bar.className = "status-bar closed";
+                msg = " • COCINA CERRADA — HORARIO DE SERVICIO DE 12:00 PM A 11:00 PM";
+            }
+
+            const repeatedText = `<span class="marquee-text">${msg}</span>`.repeat(10);
+            track.innerHTML = repeatedText;
+        }
+
+        initMarquee();
+        updateUI();
+    </script>
+</body>
+</html>
