@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether AI | Master Applied Intelligence</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="blob-glow blob-1"></div>
+    <div class="blob-glow blob-2"></div>
+    <div class="blob-glow blob-3"></div>
+
+    <div id="status-bar" class="status-bar">
+        <div class="marquee-track" id="marquee-track"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo delay-nav-logo">A E T H E R <span class="ai-badge">AI</span></div>
+        <div class="menu-links delay-nav-links">
+            <a href="#prompt-sandbox">Live Sandbox</a>
+            <a href="#learning-tracks">Programs</a>
+            <a href="#ai-quiz">Skill Assessment</a>
+            <a href="#trust-framework">Why Us?</a>
+            <a href="#registration-panel" class="cart-nav">
+                <i class="fas fa-graduation-cap"></i> Application (<span id="cart-count">0</span>)
+            </a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <p class="hero-subtitle delay-hero-subtitle"><i class="fas fa-sparkles"></i> NEXT-GENERATION APPLIED COGNITION</p>
+            <h1 class="delay-hero-title">Stop Prompting.<br>Start <span>Engineering</span>.</h1>
+            <p class="hero-description anim-scroll">Learn to orchestrate large language models, build autonomous production-grade RAG systems, and deploy multi-agent squads with absolute programmatic security.</p>
+            <div class="hero-btns delay-hero-btns">
+                <a href="#learning-tracks" class="btn-primary">Explore Programs</a>
+                <a href="#prompt-sandbox" class="btn-secondary">Try Live Sandbox</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="prompt-sandbox" class="seccion">
+        <div class="text-center anim-scroll">
+            <h2 class="titulo-seccion">Interactive Prompt Optimizer</h2>
+            <p class="subtitulo-seccion">See how simple wording transformations completely rewrite LLM output weights. Type or select a weak baseline.</p>
+        </div>
+
+        <div class="sandbox-container anim-scroll">
+            <div class="sandbox-input-panel">
+                <h4><i class="fas fa-terminal"></i> Input Baseline</h4>
+                <textarea id="sandbox-input" placeholder="e.g., Write a marketing email for my SaaS product...">Write a cold email to sell an analytics software tool.</textarea>
+                <div class="presets-row">
+                    <button class="btn-preset" onclick="loadPreset('code')">Code Gen Preset</button>
+                    <button class="btn-preset" onclick="loadPreset('data')">Data Structuring</button>
+                </div>
+                <button class="btn-optimize" onclick="optimizePrompt()">Optimize Engineering Parameters <i class="fas fa-wand-magic-sparkles"></i></button>
+            </div>
+
+            <div class="sandbox-output-panel">
+                <h4><i class="fas fa-microchip"></i> Compiled Production Grade Prompt</h4>
+                <div class="output-wrapper">
+                    <div id="sandbox-loader" class="sandbox-loader style-hidden">
+                        <div class="spinner"></div>
+                        <p>Injecting Context Layers & Semantic Guidelines...</p>
+                    </div>
+                    <pre id="sandbox-output" class="empty-code">Your engineered prompt layout will synthesize here live...</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="seccion-stats">
+        <div class="stats-grid">
+            <div class="stat-item anim-scroll">
+                <h3 class="stat-number" data-target="14250">0</h3>
+                <p>Global Engineers Formed</p>
+            </div>
+            <div class="stat-item anim-scroll">
+                <h3 class="stat-number" data-target="994">0</h3>
+                <p>Output Precision ROI %</p>
+            </div>
+            <div class="stat-item anim-scroll">
+                <h3 class="stat-number" data-target="48">0</h3>
+                <p>Hours Syllabus Update Loop</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="learning-tracks" class="seccion">
+        <div class="text-center anim-scroll">
+            <h2 class="titulo-seccion">Certified Learning Tracks</h2>
+            <p class="subtitulo-seccion">Rigorous architectures designed by senior industry engineers. Zero fluff.</p>
+            
+            <div class="search-box-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="live-search" oninput="liveSearch()" placeholder="Search tools, syntax or competencies (e.g., RAG, LangChain, Prompt)...">
+            </div>
+
+            <div class="filtros-contenedor">
+                <button class="btn-filtro active" onclick="filtrarCategoria('all', event)">All Programs</button>
+                <button class="btn-filtro" onclick="filtrarCategoria('fundamentals', event)">Fundamentals</button>
+                <button class="btn-filtro" onclick="filtrarCategoria('advanced', event)">Advanced Architecture</button>
+                <button class="btn-filtro" onclick="filtrarCategoria('business', event)">Enterprise Strategy</button>
+            </div>
+        </div>
+        
+        <div class="grid-menu" id="courses-grid">
+            <div class="card anim-scroll entry-delay-1" data-categoria="fundamentals" data-tags="prompt engineering chain of thought advanced basic models">
+                <div class="card-img">
+                    <div class="ai-visual-box pattern-1"><i class="fas fa-brain-circuit"></i></div>
+                </div>
+                <div class="card-info">
+                    <div class="card-header-item">
+                        <h3>Advanced Prompt Engineering</h3>
+                        <span class="price">149€</span>
+                    </div>
+                    <p class="recipe-desc">Master Chain-of-Thought, Tree-of-Thoughts, and directional stimulus prompting frameworks to extract ultra-precise, deterministic outputs.</p>
+                    <button onclick="addToCart('Advanced Prompt Engineering', 149.00)" class="add-btn-premium">Add to Academic Cohort</button>
+                </div>
+            </div>
+
+            <div class="card anim-scroll entry-delay-2" data-categoria="advanced" data-tags="agents rag systems langchain crewai pinecone databases vector">
+                <div class="card-img">
+                    <div class="ai-visual-box pattern-2"><i class="fas fa-network-wired"></i></div>
+                </div>
+                <div class="card-info">
+                    <div class="card-header-item">
+                        <h3>AI Agents & RAG Systems</h3>
+                        <span class="price">299€</span>
+                    </div>
+                    <p class="recipe-desc">Build production workflows using LangChain and CrewAI. Operationalize Retrieval-Augmented Generation mapped over localized vector databases.</p>
+                    <button onclick="addToCart('AI Agents & RAG Systems', 299.00)" class="add-btn-premium">Add to Academic Cohort</button>
+                </div>
+            </div>
+
+            <div class="card anim-scroll entry-delay-3" data-categoria="business" data-tags="enterprise automation flow scale audit open source models local api compliance privacy">
+                <div class="card-img">
+                    <div class="ai-visual-box pattern-3"><i class="fas fa-chart-network"></i></div>
+                </div>
+                <div class="card-info">
+                    <div class="card-header-item">
+                        <h3>Enterprise Automation Flow</h3>
+                        <span class="price">399€</span>
+                    </div>
+                    <p class="recipe-desc">Scale semantic tools across operations. Complete frameworks on strict user data isolation, local open-source LLM hosting, and API cost reduction.</p>
+                    <button onclick="addToCart('Enterprise Automation Flow', 399.00)" class="add-btn-premium">Add to Academic Cohort</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-quiz" class="seccion bg-light">
+        <div class="text-center anim-scroll">
+            <h2 class="titulo-seccion">Aether Diagnostic Assessment</h2>
+            <p class="subtitulo-seccion">Test your current knowledge depth across operational machine learning architecture baselines.</p>
+        </div>
+
+        <div class="quiz-container anim-scroll">
+            <div class="quiz-step active" id="q1">
+                <span class="quiz-meta">Question 1 of 3</span>
+                <h3>What is the core function of a Vector Database in a production RAG system?</h3>
+                <div class="quiz-options">
+                    <button onclick="checkQuiz(1, false, this)">To finetune base LLM multi-weights</button>
+                    <button onclick="checkQuiz(1, true, this)">To index and retrieve dense high-dimensional mathematical embeddings</button>
+                    <button onclick="checkQuiz(1, false, this)">To run token serialization protocols faster</button>
+                </div>
+            </div>
+
+            <div class="quiz-step" id="q2">
+                <span class="quiz-meta">Question 2 of 3</span>
+                <h3>Which prompt mechanism relies on structured multi-agent verification pathways before responding?</h3>
+                <div class="quiz-options">
+                    <button onclick="checkQuiz(2, false, this)">Zero-Shot Prompting</button>
+                    <button onclick="checkQuiz(2, false, this)">Directional Formatting</button>
+                    <button onclick="checkQuiz(2, true, this)">Collaborative Multi-Agent Debating Core</button>
+                </div>
+            </div>
+
+            <div class="quiz-step" id="q3">
+                <span class="quiz-meta">Question 3 of 3</span>
+                <h3>What happens to data privacy when running an API layout vs a localized open-weight system?</h3>
+                <div class="quiz-options">
+                    <button onclick="checkQuiz(3, true, this)">Localized instances keep all matrices inside your strict system perimeter</button>
+                    <button onclick="checkQuiz(3, false, this)">External API loops guarantee mathematical data deletion</button>
+                </div>
+            </div>
+
+            <div id="quiz-result" class="quiz-result style-hidden">
+                <i class="fas fa-award result-icon"></i>
+                <h3>Diagnostic Profile Complete</h3>
+                <p id="quiz-score-text"></p>
+                <button class="btn-primary" onclick="resetQuiz()">Retake Diagnostic</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="trust-framework" class="seccion-confianza">
+        <div class="text-center anim-scroll">
+            <h2 class="titulo-seccion">Why Trust Our Academy?</h2>
+            <p class="subtitulo-seccion">In an ocean of speculative hype, we focus exclusively on system capability security and deterministic code infrastructure.</p>
+        </div>
+        <div class="grid-confianza">
+            <div class="item-confianza anim-scroll">
+                <div class="icono-confianza"><i class="fas fa-user-shield"></i></div>
+                <h4>Verified Expert Practitioners</h4>
+                <p>Every single training vector is engineered by practitioners holding verified deployment histories in enterprise AI computing blocks.</p>
+            </div>
+            <div class="item-confianza anim-scroll">
+                <div class="icono-confianza"><i class="fas fa-laptop-code"></i></div>
+                <h4>Project-Based Repositories</h4>
+                <p>You don't watch passive slide-decks. You push production-ready application architectures to private environments reviewed directly by mentors.</p>
+            </div>
+            <div class="item-confianza anim-scroll">
+                <div class="icono-confianza"><i class="fas fa-shield-check"></i></div>
+                <h4>14-Day Performance Guarantee</h4>
+                <p>Absolute risk elimination. If the technical depth does not line up perfectly with your organizational target roadmap, request a complete reversal.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="registration-panel" class="seccion">
+        <div class="cart-container anim-scroll">
+            <h2>Your Academic Application Portfolio</h2>
+            
+            <div id="cart-items"></div>
+            
+            <div class="opciones-entrega">
+                <label class="radio-label">
+                    <input type="radio" name="entrega" value="standard" checked onchange="calcularTotales()">
+                    <span><i class="fas fa-bolt"></i> Immediate Platform Access (Included)</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="entrega" value="mentorship" onchange="calcularTotales()">
+                    <span><i class="fas fa-user-astronaut"></i> Include 1-on-1 Cohort Mentorship (+150€)</span>
+                </label>
+            </div>
+
+            <div class="notas-cocina">
+                <label for="order-notes">Background Profiling or Special Deployment Objectives:</label>
+                <textarea id="order-notes" placeholder="e.g., Engineering director seeking stack transition / Founder creating autonomous multi-agent pipelines..."></textarea>
+            </div>
+            
+            <div class="cart-total">
+                <div class="total-row">
+                    <span>Base Tuition Investment:</span>
+                    <span id="subtotal-price">0.00€</span>
+                </div>
+                <div class="total-row envio-row" id="envio-row" style="display: none;">
+                    <span>Premium Dedicated Mentorship:</span>
+                    <span>150.00€</span>
+                </div>
+                <div class="total-row final-total">
+                    <span>Total Operational Value:</span>
+                    <span id="total-price">0.00€</span>
+                </div>
+                <button class="btn-whatsapp" onclick="sendOrder()">
+                    Submit Admission Parameters <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer-wave-container">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" /></defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(249, 249, 249, 0.4)" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(99, 102, 241, 0.05)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255, 255, 255, 0.8)" />
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="#0B0F19" />
+            </g>
+        </svg>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="anim-scroll">
+                <h4>AETHER SYSTEM</h4>
+                <p>High-fidelity computational layouts, algorithmic workflow pipelines, and neural alignment education protocols.</p>
+            </div>
+            <div class="anim-scroll">
+                <h4>Registry Office</h4>
+                <p>📞 +34 602 59 42 58</p>
+                <p>✉️ system@aether.ai</p>
+            </div>
+            <div class="anim-scroll">
+                <h4>Admissions Schedule</h4>
+                <p>Continuous Evaluation</p>
+                <p>09:00 AM - 07:00 PM CET</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 AETHER AI Systems Core. Precision Engineered Architectural Intelligence.</p>
+        </div>
+    </footer>
+
+    <a href="tel:+34602594258" class="btn-llamada-flotante" title="Call Advisor Immediately">
+        <i class="fas fa-headset"></i>
+    </a>
+
+    <script>
+        let cart = {};
+        const MENTORSHIP_FEE = 150.00;
+        let currentFilter = 'all';
+
+        // LÓGICA DE SIMULADOR DE PROMPTING
+        function loadPreset(type) {
+            const input = document.getElementById('sandbox-input');
+            if(type === 'code') {
+                input.value = "Write a python script to pull weather records from an api and write to a csv file.";
+            } else if(type === 'data') {
+                input.value = "Clean this messy log block and find error timestamps.";
+            }
+        }
+
+        function optimizePrompt() {
+            const base = document.getElementById('sandbox-input').value;
+            const loader = document.getElementById('sandbox-loader');
+            const output = document.getElementById('sandbox-output');
+            
+            loader.classList.remove('style-hidden');
+            output.classList.add('faded');
+
+            setTimeout(() => {
+                loader.classList.add('style-hidden');
+                output.classList.remove('faded');
+                output.classList.remove('empty-code');
+                
+                output.textContent = `### SYSTEM INSTRUCTIONS & STRUCTURAL PRIMING\nYou are an advanced compiler optimized for robust computation pipelines. Maintain strict semantic constraints.\n\n### OPERATIONAL CONTEXT\n[Base Query Transformation]: "${base}"\n\n### FEW-SHOT EXPERIMENTAL TEMPLATE\nEnsure output conforms structurally to JSON specifications. Never emit plain conversation.\n\n### EXECUTIVE EXECUTION GUIDELINES\n1. Enforce validation boundaries.\n2. Trace logic chains step-by-step before resolving final structure.\n3. Implement explicit fault-tolerance catch syntax.`;
+            }, 1200);
+        }
+
+        // CONTROLADOR DE COMPRAS / TRACKS
+        function addToCart(name, price) {
+            if (cart[name]) { cart[name].qty++; } else { cart[name] = { price: price, qty: 1 }; }
+            updateUI();
+        }
+
+        function changeQty(name, delta) {
+            cart[name].qty += delta;
+            if (cart[name].qty <= 0) delete cart[name];
+            updateUI();
+        }
+
+        // LIVE FILTER Y BUSCADOR COMBINADO
+        function filtrarCategoria(categoria, e) {
+            currentFilter = categoria;
+            const botones = document.querySelectorAll('.btn-filtro');
+            botones.forEach(btn => btn.classList.remove('active'));
+            if(e && e.target) e.target.classList.add('active');
+            applyCombinedFilters();
+        }
+
+        function liveSearch() {
+            applyCombinedFilters();
+        }
+
+        function applyCombinedFilters() {
+            const searchQuery = document.getElementById('live-search').value.toLowerCase().trim();
+            const tarjetas = document.querySelectorAll('#courses-grid .card');
+
+            tarjetas.forEach(card => {
+                const cat = card.getAttribute('data-categoria');
+                const tags = card.getAttribute('data-tags').toLowerCase();
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                
+                const matchesCat = (currentFilter === 'all' || cat === currentFilter);
+                const matchesSearch = !searchQuery || title.includes(searchQuery) || tags.includes(searchQuery);
+
+                if (matchesCat && matchesSearch) {
+                    card.classList.remove('filtered-out');
+                    card.classList.add('visible');
+                } else {
+                    card.classList.remove('visible');
+                    card.classList.add('filtered-out');
+                }
+            });
+        }
+
+        function updateUI() {
+            const container = document.getElementById('cart-items');
+            container.innerHTML = '';
+            let count = 0;
+
+            Object.keys(cart).forEach(name => {
+                const item = cart[name];
+                count += item.qty;
+                container.innerHTML += `
+                    <div class="cart-item animated-item">
+                        <div class="cart-item-details">
+                            <span class="item-title">${name}</span>
+                            <span class="item-unit-price">${item.price.toFixed(2)}€ / seat tier</span>
+                        </div>
+                        <div class="qty-ctrl">
+                            <button onclick="changeQty('${name}', -1)">-</button>
+                            <span>${item.qty}</span>
+                            <button onclick="changeQty('${name}', 1)">+</button>
+                            <span class="subtotal">${(item.price * item.qty).toFixed(2)}€</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('cart-count').innerText = count;
+            if(count === 0) {
+                container.innerHTML = '<p class="empty-msg">Select a digital optimization track configuration from our certified syllabus above.</p>';
+            }
+            calcularTotales();
+        }
+
+        function calcularTotales() {
+            let subtotal = 0;
+            Object.keys(cart).forEach(name => { subtotal += cart[name].price * cart[name].qty; });
+
+            const metodo = document.querySelector('input[name="entrega"]:checked').value;
+            let totalFinal = subtotal;
+            const envioRow = document.getElementById('envio-row');
+            
+            if (metodo === 'mentorship' && subtotal > 0) {
+                totalFinal += MENTORSHIP_FEE;
+                envioRow.style.display = 'flex';
+            } else {
+                envioRow.style.display = 'none';
+            }
+
+            document.getElementById('subtotal-price').innerText = subtotal.toFixed(2) + '€';
+            document.getElementById('total-price').innerText = totalFinal.toFixed(2) + '€';
+        }
+
+        // DIAGNÓSTICO QUIZ INTERACTIVO
+        let quizScore = 0;
+        function checkQuiz(stepNum, isCorrect, btnElement) {
+            const options = btnElement.parentElement.querySelectorAll('button');
+            options.forEach(btn => btn.disabled = true);
+
+            if(isCorrect) {
+                btnElement.classList.add('correct');
+                quizScore++;
+            } else {
+                btnElement.classList.add('wrong');
+                options.forEach(btn => {
+                    // Resaltar la correcta sutilmente
+                    if(btn.getAttribute('onclick').includes('true')) btn.classList.add('correct-glow');
+                });
+            }
+
+            setTimeout(() => {
+                document.getElementById(`q${stepNum}`).classList.remove('active');
+                const nextStep = document.getElementById(`q${stepNum + 1}`);
+                if(nextStep) {
+                    nextStep.classList.add('active');
+                } else {
+                    const res = document.getElementById('quiz-result');
+                    res.classList.remove('style-hidden');
+                    let profileStr = quizScore === 3 ? "Architect Grade (3/3)" : quizScore === 2 ? "System Intermediate (2/3)" : "Baseline Analyst (1/3 or below)";
+                    document.getElementById('quiz-score-text').innerHTML = `Your localized profile rating evaluated as: <strong>${profileStr}</strong>.<br>We suggest applying to the corresponding workflow tracks.`;
+                }
+            }, 1000);
+        }
+
+        function resetQuiz() {
+            quizScore = 0;
+            document.getElementById('quiz-result').classList.add('style-hidden');
+            document.querySelectorAll('.quiz-options button').forEach(btn => {
+                btn.disabled = false;
+                btn.className = '';
+            });
+            document.getElementById('q1').classList.add('active');
+        }
+
+        function sendOrder() {
+            if (Object.keys(cart).length === 0) return alert("Please map an instructional program setup track to your runtime before execution.");
+            const metodo = document.querySelector('input[name="entrega"]:checked').value;
+            const notes = document.getElementById('order-notes').value.trim();
+            
+            let text = "🧬 *ACADEMIC PROFILING HANDSHAKE - AETHER AI*\n===================================\n\n";
+            let subtotal = 0;
+            Object.keys(cart).forEach(name => {
+                text += `🎓 *${cart[name].qty}x ${name}* (${(cart[name].price * cart[name].qty).toFixed(2)}€)\n`;
+                subtotal += cart[name].price * cart[name].qty;
+            });
+            text += "\n===================================\n";
+            text += `⚡ *Instruction Architecture Level:* ${metodo === 'mentorship' ? 'Premium 1-on-1 Cohort Mentor Path' : 'Standard Core Access Tier'}\n`;
+            if (notes) text += `📝 *Profile Directives:* ${notes}\n`;
+            if (metodo === 'mentorship') subtotal += MENTORSHIP_FEE;
+            text += `\n💎 *COMMITTED TUITION CAPITAL:* ${subtotal.toFixed(2)}€`;
+            
+            window.open(`https://api.whatsapp.com/send?phone=34602594258&text=${encodeURIComponent(text)}`);
+        }
+
+        // ANIMACIÓN DE CONTADORES NUMÉRICOS
+        function handleCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const speed = 150; 
+                const updateCount = () => {
+                    const current = +counter.innerText.replace('+','').replace('%','');
+                    const inc = Math.ceil(target / speed);
+                    if (current < target) {
+                        let decor = target === 14250 ? "+" : target === 994 ? "%" : "h";
+                        counter.innerText = (target === 14250) ? `+${current + inc}` : `${current + inc}${decor}`;
+                        setTimeout(updateCount, 10);
+                    } else {
+                        counter.innerText = target === 14250 ? `+14,250` : target === 994 ? "99.4%" : "48h";
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const bar = document.getElementById('status-bar');
+            const track = document.getElementById('marquee-track');
+            bar.className = "status-bar open";
+            track.innerHTML = `<span class="marquee-text">• AETHER INTERACTIVE PLATFORM ACTIVE • 2026 COHORT PROTOCOLS ONLINE • SYSTEM ENROLMENT IS OPEN TIER</span>`.repeat(8);
+
+            const opciones = { root: null, threshold: 0.05, rootMargin: "0px 0px -40px 0px" };
+            let triggeredCounters = false;
+            
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        if(entry.target.classList.contains('seccion-stats') && !triggeredCounters){
+                            handleCounters();
+                            triggeredCounters = true;
+                        }
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, opciones);
+
+            document.querySelectorAll(".anim-scroll, .seccion-stats").forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
